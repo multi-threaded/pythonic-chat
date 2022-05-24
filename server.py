@@ -15,6 +15,7 @@ class Server:
         self.connected_socks = []       
         self.start()
         
+    # start the server
     def start(self):
         try:
             self.sock.bind((self.host, self.port))
@@ -26,6 +27,7 @@ class Server:
             sleep(2)
             exit(0)
             
+    # handle connections accordingly
     def connection_handler(self):
         while self.running:
             try:
@@ -40,12 +42,13 @@ class Server:
                 threading.Thread(target=lambda: self.message_handler(conn)).start()
             except:
                 print(f"[!] {client_nickname} | {addr} Has Disconnected")
-                
+            
+    # send message to all connected clients    
     def broadcast(self, message):
         for conn in self.connected_socks:
             conn.sendall(message)
             
-            
+    # handle received messages accordingly
     def message_handler(self, conn):
         while True:
             try:

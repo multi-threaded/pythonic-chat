@@ -18,6 +18,7 @@ root.title("Pythonic Chat")
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
+# draw the gui
 def draw_gui():
     ip_lbl = Label(root, text="IP Address").place(x=50, y=10)
     ip_entry = Entry(root)
@@ -39,6 +40,7 @@ def draw_gui():
     send_button.place(x=220, y=460)
 
 
+# setup the client and prepare for connection
 def configure_client(ip_entry, port_entry, nickname_entry, receive_message_box):
     try:
         ip = ip_entry.get()
@@ -54,6 +56,7 @@ def configure_client(ip_entry, port_entry, nickname_entry, receive_message_box):
         messagebox.showerror("Operation Failed!", "Invalid Arguments Supplied!")
         
         
+# connect to the server
 def connect(ip, port, nickname, receive_message_box):
     try:
         enc_nick = nickname.encode('utf-8')
@@ -64,6 +67,7 @@ def connect(ip, port, nickname, receive_message_box):
         messagebox.showerror("Operation Failed!", "Failed To Connect To Server!")
         
 
+# handle received messages
 def handle_messages(receive_message_box):
     while True:
         try:
@@ -77,6 +81,7 @@ def handle_messages(receive_message_box):
             print(str(e))
             
             
+# send message to server
 def send_msg(nickname_entry, send_message_box):
     nickname = nickname_entry.get()
     msg = send_message_box.get('1.0', END)
